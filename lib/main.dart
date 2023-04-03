@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:my_project/todos_detail.dart';
-void main(){
+
+void main() {
   runApp(MyApp());
 }
 
@@ -32,7 +36,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   TextEditingController kegiatan = TextEditingController();
   TextEditingController keterangan = TextEditingController();
 
@@ -41,7 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         title: Center(child: const Text('Todos')),
@@ -71,9 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             labelText: 'Judul Kegiatan',
-                            errorText: isKegiatanEmpty == true ? 'Judul Kegiatan Harus Diisi' : null
-                            ),
-                            
+                            errorText: isKegiatanEmpty == true
+                                ? 'Judul Kegiatan Harus Diisi'
+                                : null),
                       ),
                     ),
                   ],
@@ -103,7 +105,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
                       labelText: 'Tambah Keterangan',
-                      errorText: isKeteranganEmpty == true ? 'Keterangan Harus Diisi' : null),
+                      errorText: isKeteranganEmpty == true
+                          ? 'Keterangan Harus Diisi'
+                          : null),
                 ),
               ),
               Container(
@@ -133,7 +137,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(
                       width: 120,
                       child: TextFormField(
-                        
                         decoration: const InputDecoration(
                             border: UnderlineInputBorder(),
                             labelText: '20-03-2022',
@@ -144,11 +147,38 @@ class _MyHomePageState extends State<MyHomePage> {
                     SizedBox(
                       width: 120,
                       child: TextFormField(
-
                         decoration: const InputDecoration(
                             border: UnderlineInputBorder(),
                             labelText: '20-03-2022',
                             labelStyle: TextStyle(fontSize: 14)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+                child: Row(
+                  children: [
+                    const Icon(Icons.category),
+                    const Padding(padding: EdgeInsets.only(right: 7)),
+                    const Text(
+                      'Kategori',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const Padding(padding: EdgeInsets.only(left: 150)),
+                    SizedBox(
+                      width: 120,
+                      child: TextFormField(
+                        controller: kegiatan,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            labelText: 'Routine',
+                            suffixIcon: Icon(Icons.keyboard_arrow_down),
+                            errorText: isKegiatanEmpty == true
+                                ? 'Routine harus Diisi'
+                                : null),
                       ),
                     ),
                   ],
@@ -186,19 +216,21 @@ class _MyHomePageState extends State<MyHomePage> {
                               setState(() {
                                 isKeteranganEmpty = true;
                               });
-                            }
-
-                            else {
+                            } else {
                               setState(() {
                                 isKegiatanEmpty = false;
                                 isKeteranganEmpty = false;
                               });
 
-                              Navigator.push(context, MaterialPageRoute (builder: (context) {
-                                return TodosDetailPage(kegiatan: kegiatan.text, keterangan: keterangan.text, tglMulai: DateTime.now().toString(), tglSelesai: DateTime.now().toString(),);
-                              })) ;
-
-                              
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return TodosDetailPage(
+                                  kegiatan: kegiatan.text,
+                                  keterangan: keterangan.text,
+                                  tglMulai: DateTime.now().toString(),
+                                  tglSelesai: DateTime.now().toString(),
+                                );
+                              }));
                             }
                           },
                           child: const Text(
